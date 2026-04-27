@@ -22,7 +22,7 @@ Ce projet documente la mise en place d'une infrastructure réseau sécurisée.
 * Activation et configuration du serveur **DHCP / DNS**
 * Définitions des règles du pare-feu
 
-### IV. Installation du serveur web (Debian 12.12 Bookworm)
+* [IV. Installation du serveur web Debian 12.5 Bookworm](docs/03_debian.md)
 * Configuration du serveur
 
 ### V. Sécurisation du serveur
