@@ -61,5 +61,7 @@ Nous renseignons ensuite les informations d'identité du routeur ainsi que les s
 * **Domain :** (ex: tssr.lab)
 * **DNS :** 10.0.0.1 (DNS externes comme 1.1.1.1)
 
+![Configuration DNS et Domaine](../images/domain_dns_pfsense.png)
+
 
 
