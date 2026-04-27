@@ -22,9 +22,9 @@ Ce chapitre détaille la configuration réseau utilisée pour l'infrastructure s
 ### Schéma Logique
 Ce schéma représente les flux et l'organisation des sous-réseaux (LAN, DMZ, WAN).
 
-![Schéma Logique](../schema_logique.png)
+![Schéma Logique](../images/schema_logique.png)
 
 ### Schéma Physique
 Ce schéma détaille les équipements et les connexions physiques de l'infrastructure.
 
-![Schéma Physique](../schema_physique.png)
+![Schéma Physique](../images/schema_physique.png)
