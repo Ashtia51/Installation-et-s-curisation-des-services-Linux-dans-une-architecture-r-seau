@@ -16,7 +16,7 @@ Ce projet documente la mise en place d'une infrastructure réseau sécurisée.
 * Configuration des interfaces réseaux
 * Configuration des adresses IP
 
-### III. Configuration avancée de Pfsense
+* [III. Configuration avancée de pfSense](docs/03_advanced_config_pfsense.md)
 * Réalisation de tests via le protocole **ICMP**
 * Création du réseau de notre **DMZ**
 * Activation et configuration du serveur **DHCP / DNS**
