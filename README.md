@@ -29,4 +29,4 @@ Ce projet documente la mise en place d'une infrastructure réseau sécurisée.
 * Restrictions **SSH**
 * Installation et configuration de **FirewallD**, **Fail2ban** et **Netdata**
 
-### VI. Conclusion et analyse de sécurité
+* [VI. Conclusion et analyse de sécurité](docs/05_analyse.md)
