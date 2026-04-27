@@ -131,3 +131,16 @@ Le réseau local est la zone de gestion. Les administrateurs peuvent accéder au
 
 #### 🌐 Interface DMZ (Isolation)
 C'est la règle la plus critique de notre architecture : **la DMZ ne peut en aucun cas initier de connexion vers le LAN**. En cas d'intrusion sur le serveur Web, l'attaquant est ainsi confiné dans cette zone isolée. Les seuls flux sortants autorisés sont dirigés vers l'Internet pour permettre la récupération des paquets de mise à jour du système.
+
+## 3. Configuration de la passerelle WAN (VMnet8)
+
+Pour permettre l'accès à Internet à l'ensemble de notre architecture, nous devons configurer la passerelle par défaut sur l'interface WAN. Cette interface est reliée au commutateur virtuel **VMnet8 (NAT)** de VMware, qui assure la liaison avec le réseau physique.
+
+### Paramétrage du Gateway
+Nous renseignons l'adresse IP de la passerelle NAT de VMware (généralement la `.2` du sous-réseau configuré) pour que pfSense puisse router le trafic vers l'extérieur.
+
+![Configuration de la passerelle](../images/config_bond_pfsense.png)
+
+Cette étape est indispensable pour que le serveur Debian puisse effectuer ses mises à jour et que les clients du LAN puissent naviguer sur le Web.
+
+
