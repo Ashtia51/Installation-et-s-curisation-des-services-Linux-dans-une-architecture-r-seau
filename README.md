@@ -1,0 +1,2 @@
+# Installation-et-s-curisation-des-services-Linux-dans-une-architecture-r-seau
+Nous mettons en place une architecture sécurisée avec trois réseaux : LAN interne, DMZ isolant le serveur web et WAN (NAT) pour l’accès Internet. Une redirection de ports permet d’accéder au serveur web depuis le WAN via la DMZ, tout en protégeant le réseau interne. Nous protègerons l'infrastructure complète notamment sur les accès distants en ssh.
