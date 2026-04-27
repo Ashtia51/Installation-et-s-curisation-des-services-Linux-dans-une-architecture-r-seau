@@ -21,7 +21,6 @@ Voici le résultat de la configuration :
 > ![Configuration DMZ/OPT1](../images/assign_int_pfsense_DMZ.png)
 > ![Résumé des interfaces](../images/assign_int_pfsense_final.png)
 
----
 
 ## 2. Réalisation de tests via le protocole ICMP
 Pour valider notre configuration, nous utilisons une machine cliente **Microsoft Windows 10** placée dans le réseau **LAN**.
@@ -85,6 +84,20 @@ Voici le tableau de bord récapitulatif après cette première phase de configur
 > **Note :** On s'aperçoit à ce stade que si le WAN et le LAN sont opérationnels, la **DMZ** (visible sous le nom `OPT1`) reste encore à être configurée au niveau de l'adressage et de son nommage définitif.
 
 ![Liste des interfaces finales](../images/int_liste_pfsense.png)
+
+
+## 5. Création et configuration de la zone DMZ
+
+La DMZ (Demilitarized Zone) est essentielle pour isoler notre serveur Web du reste du réseau local (LAN). 
+
+### Configuration de l'interface
+Nous nous rendons dans le menu **Interfaces > OPT1**. Pour rendre l'administration plus claire, nous effectuons les modifications suivantes :
+1. **Description :** Changement du nom par défaut `OPT1` en **DMZ**.
+2. **Configuration IPv4 :** Nous vérifions que l'adresse IP de la passerelle (l'interface du pfSense côté DMZ) correspond bien à notre plan d'adressage (`172.16.0.1/24`).
+
+![Configuration de l'interface DMZ](../images/config_dmz_pfsense.png)
+
+Une fois ces modifications appliquées, la DMZ est officiellement active et prête à recevoir les règles de filtrage pour sécuriser les flux entrants et sortants.
 
 
 
