@@ -100,6 +100,41 @@ Nous nous rendons dans le menu **Interfaces > OPT1**. Pour rendre l'administrati
 Une fois ces modifications appliquées, la DMZ est officiellement active et prête à recevoir les règles de filtrage pour sécuriser les flux entrants et sortants.
 
 
+---
 
+## 6. Configuration des services réseau (LAN)
+
+### Serveur DHCP
+Afin d'automatiser l'adressage sur le réseau local, nous configurons pfSense comme serveur DHCP unique pour l'interface LAN.
+* **Plage d'adresses (Scope) :** `10.0.0.50` à `10.0.0.100`
+* **Passerelle :** `10.0.0.1`
+
+![Configuration DHCP LAN](../images/dhcp_options_pfsense.png)
+
+### Résolution de noms (DNS Resolver)
+Nous configurons le **DNS Resolver** (Unbound) pour que pfSense assure la résolution de noms sur le LAN. 
+1. Activation du service sur l'interface LAN.
+2. Activation de l'option de résolution pour les clients DHCP (permet de résoudre les noms d'hôtes locaux).
+
+![Activation DNS Resolver](../images/dns_lan_resolution_pfsense.png)
+![Résolution des baux DHCP](../images/dns_resolution_dhcp_pfsense.png)
+
+
+## 7. Tests de connectivité et validation (ICMP)
+
+### Validation du bail DHCP
+Après avoir désactivé le serveur DHCP de VMware Workstation (VMnet10) pour éviter les conflits, nous renouvelons l'adresse IP sur la machine cliente Windows 10. La commande `ipconfig /all` confirme que pfSense (`10.0.0.1`) a bien attribué une adresse dans la plage prévue.
+
+![Vérification ipconfig](../images/new_ipconfigall_pfsense.png)
+
+### Tests de communication
+Pour valider l'ensemble de la pile réseau (L1 à L7), nous effectuons une série de pings :
+
+1. **Ping de la passerelle :** Vérifie la connectivité locale avec pfSense.
+   ![Ping Passerelle](../images/ping_passerelle_pfsense.png)
+2. **Ping DNS Cloudflare (1.1.1.1) :** Vérifie l'accès à l'Internet extérieur (routage/NAT).
+   ![Ping Cloudflare](../images/ping_dns_cloudflare_pfsense.png)
+3. **Résolution Google.com :** Vérifie que le résolveur DNS de pfSense fonctionne correctement.
+   ![Test DNS Google](../images/domain_google_pfsense.png)
 
 
