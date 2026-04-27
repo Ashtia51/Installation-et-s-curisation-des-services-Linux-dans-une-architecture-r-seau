@@ -180,6 +180,42 @@ Voici l'état final des tables de filtrage après configuration :
 * **Résultats Interface DMZ :**
   ![Résultats DMZ](../images/dmz_rule_results.png)
 
+  ## 5. Validation et tests de connectivité (Recette)
+
+Après la configuration des règles, une phase de tests rigoureux a été menée pour valider le bon cloisonnement des flux.
+
+### A. Tests depuis le LAN (Zone de confiance)
+Nous vérifions que le LAN peut administrer la DMZ comme prévu :
+* **Test ICMP :** Ping réussi vers le futur serveur Web.
+  ![Ping LAN vers DMZ](../images/ping_lan_dmz.png)
+* **Accès Passerelle :** Ping de l'interface DMZ du pfSense.
+  ![Ping Gateway DMZ](../images/gateway_dmz.png)
+* **Test SSH :** Tentative de connexion sur le port 22 du serveur DMZ.
+  ![SSH vers DMZ](../images/ssh_dmz.png)
+
+### B. Tests depuis le WAN
+Vérification de la visibilité du serveur depuis l'extérieur (via les règles de NAT) :
+* **Test ICMP :** Ping vers l'adresse de la DMZ depuis le routeur.
+  ![Ping WAN vers DMZ](../images/ping_pfsense_dmz.png)
+
+### C. Tests depuis la DMZ (Zone isolée)
+C'est ici que nous validons la sécurité. La DMZ doit être capable de sortir sur Internet mais ne doit jamais voir le LAN :
+* **Isolation LAN :** Tentative de ping vers le LAN (Echec attendu).
+  ![Test Isolation DMZ vers LAN](../images/rule_dmz_lan_ok.png)
+* **Accès HTTP :** Test de récupération des dépôts (Mises à jour).
+  ![Test Port 80 DMZ](../images/port80_ok.png)
+* **Résolution DNS :** Vérification du fonctionnement du port 53.
+  ![Test DNS DMZ](../images/port53_ok.png)
+
+---
+
+### ⚠️ Notes importantes de configuration
+
+Lors de la création des règles dans pfSense, une attention particulière a été portée sur les points suivants :
+* **Définition des cibles :** Utilisation de l'option **"Subnet"** ou de l'adresse IP exacte au lieu de "Interface Address" (qui ne cible que l'IP de la passerelle pfSense).
+* **Ordre des règles :** Les tests ont été réalisés chronologiquement après chaque modification pour s'assurer qu'aucune règle globale ne masquait une règle spécifique (Lecture de haut en bas).
+* **Pré-requis :** Le serveur Web a été provisionné en amont pour permettre ces tests, incluant une page `index.html` de test pour valider le flux HTTP avant la phase finale d'installation.
+
   
 
 
