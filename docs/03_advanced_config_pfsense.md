@@ -112,3 +112,22 @@ Pour valider l'ensemble de la pile réseau (L1 à L7), nous effectuons une séri
    ![Ping Cloudflare](../images/ping_dns_cloudflare_pfsense.png)
 3. **Résolution Google.com :** Vérifie que le résolveur DNS de pfSense fonctionne correctement.
    ![Test DNS Google](../images/domain_google_pfsense.png)
+
+   ## 2. Définition des règles du pare-feu
+
+Pour garantir la sécurité de l'infrastructure, nous avons défini une politique de filtrage stricte sur pfSense. L'objectif est de compartimenter les flux afin qu'une compromission sur une zone (notamment la DMZ, exposée à l'extérieur) ne puisse pas impacter les autres zones sensibles comme le LAN.
+
+Le tableau ci-dessous détaille la matrice de flux que nous avons implémentée :
+
+![Définition des règles](../images/tableau_firewall_pfsense.png)
+
+### Détails de la configuration par interface
+
+#### 🛡️ Interface WAN
+L'accès depuis l'extérieur est strictement limité aux services Web. Une règle de redirection de port (NAT) a été mise en place pour acheminer le trafic public (ports 80 et 443) vers l'adresse IP privée du serveur Debian situé dans la DMZ.
+
+#### 💻 Interface LAN
+Le réseau local est la zone de gestion. Les administrateurs peuvent accéder au serveur en DMZ via le protocole SSH pour la maintenance technique ou en HTTP pour vérifier le bon déploiement du site Web.
+
+#### 🌐 Interface DMZ (Isolation)
+C'est la règle la plus critique de notre architecture : **la DMZ ne peut en aucun cas initier de connexion vers le LAN**. En cas d'intrusion sur le serveur Web, l'attaquant est ainsi confiné dans cette zone isolée. Les seuls flux sortants autorisés sont dirigés vers l'Internet pour permettre la récupération des paquets de mise à jour du système.
