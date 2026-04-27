@@ -43,3 +43,29 @@ Pour faciliter la connexion, nous importons la clé privée dans **Pageant** (ag
 
 * **Résultat de la connexion :**
 ![Authentification réussie](../images/authentified_key.png)
+
+## 6. Installation et configuration de FirewallD
+
+Pour renforcer la sécurité locale du serveur (défense en profondeur), nous installons et configurons **FirewallD**. Ce pare-feu interne permet de ne laisser entrer que les flux strictement nécessaires au fonctionnement du service Web et de l'administration.
+
+### A. Installation du service
+Le paquet est installé via le gestionnaire de paquets APT.
+![Installation FirewallD](../images/install_firewallD.png)
+
+### B. Configuration des ports autorisés
+Par défaut, FirewallD bloque tout le trafic entrant non autorisé. Nous ouvrons spécifiquement les ports nécessaires :
+
+* **Port SSH personnalisé (5091) :** Autorisation de l'administration sécurisée.
+![Ouverture Port 5091](../images/firewallD_ssh.png)
+
+* **Port 80 (HTTP) :** Pour l'accès au site Web.
+![Ouverture Port 80](../images/firewallD_80.png)
+
+* **Port 443 (HTTPS) :** Pour les futures connexions sécurisées.
+![Ouverture Port 443](../images/firewallD_443.png)
+
+### C. Vérification de la configuration
+Nous listons les services et ports actifs pour confirmer que la politique de "Default Deny" est bien en place pour tout le reste du trafic.
+![Liste des règles FirewallD](../images/firewallD_liste.png)
+
+> **Note :** Les règles ont été testées immédiatement. Elles ont ensuite été passées en mode permanent (via l'option `--permanent`) pour persister après un redémarrage du serveur.
